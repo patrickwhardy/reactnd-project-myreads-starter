@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import Shelf from './Shelf'
+import * as BooksAPI from './BooksAPI'
 
 class BookShelves extends Component {
+  state = {
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then(books => {
+      this.setState({ books })
+    })
+  }
+
+  filterByCategory = (category, books) => {
+    if (books) {
+      return books.filter(book => {
+        return book.shelf === category
+      })
+    }
+  }
+
   render() {
-    let categories = [
-      'Currently Reading',
-      'Read',
-      'Want to Read'
-    ]
+    const categories = ['currentlyReading', 'read', 'wantToRead']
 
     return (
       <div className="list-books">
@@ -16,12 +31,15 @@ class BookShelves extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            {categories.map((category, index) => {
+            {categories.map((category) => {
               return (
               <div key={category}>
-                <Shelf
-                  category={category}
-                />
+                {this.state.books ?
+                  <Shelf
+                    category={category}
+                    books={this.filterByCategory(category, this.state.books)}
+                  />
+                : null }
               </div>
             )
             })}

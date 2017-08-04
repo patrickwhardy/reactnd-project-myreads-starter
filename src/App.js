@@ -16,6 +16,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    console.log()
     return (
       <div className="app">
         {this.state.showSearchPage ? <Search /> : <BookShelves />}
