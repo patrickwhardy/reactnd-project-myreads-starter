@@ -28,6 +28,7 @@ class BooksApp extends React.Component {
   }
 
   moveBook = (book, shelf) => {
+  console.log('moveBook', book, shelf)
   const newBook = Object.assign({}, book, { shelf })
 
   if (this.bookInBookShelf(newBook)) {

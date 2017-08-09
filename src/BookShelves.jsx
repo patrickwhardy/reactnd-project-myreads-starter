@@ -23,7 +23,7 @@ class BookShelves extends Component {
 
   render() {
     const categories = ['currentlyReading', 'read', 'wantToRead']
-
+    const moveBook = this.props.moveBook
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -38,6 +38,7 @@ class BookShelves extends Component {
                   <Shelf
                     category={category}
                     books={this.filterByCategory(category, this.state.books)}
+                    moveBook={moveBook}
                   />
                 : null }
               </div>

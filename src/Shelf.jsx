@@ -3,7 +3,8 @@ import Book from './Book'
 
 class Shelf extends Component {
   render() {
-
+    const books = this.props.books
+    const moveBook = this.props.moveBook
     const titles = {
       currentlyReading: 'Currently Reading',
       read: 'Read',
@@ -15,11 +16,12 @@ class Shelf extends Component {
       <h2 className="bookshelf-title">{titles[this.props.category]}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
-          {this.props.books.map((book) => (
-            <li>
+          {books.map((book) => (
+            <li key={book.id}>
               <Book
                 key={book.id}
                 book={book}
+                moveBook={shelf => moveBook(book, shelf)}
               />
             </li>
           ))}

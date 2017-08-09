@@ -11,9 +11,10 @@ class Book extends Component {
   }
 
   render () {
-
-    let authors = this.concatAuthors(this.props.book.authors)
-    let background = this.props.book.previewLink
+    const moveBook = this.props.moveBook
+    const title = this.props.book.title
+    const authors = this.concatAuthors(this.props.book.authors)
+    const background = this.props.book.previewLink
 
     return (
       <div className="book">
@@ -26,7 +27,9 @@ class Book extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select
+              onChange={event => moveBook(event.target.value)}
+            >
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -35,7 +38,7 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.book.title}</div>
+        <div className="book-title">{title}</div>
         <div className="book-authors">{authors}</div>
       </div>
     )
