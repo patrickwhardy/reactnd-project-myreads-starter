@@ -8,7 +8,8 @@ class Shelf extends Component {
     const titles = {
       currentlyReading: 'Currently Reading',
       read: 'Read',
-      wantToRead: 'Want to Read'
+      wantToRead: 'Want to Read',
+      searchResults: 'Search Results'
     }
 
     return (
