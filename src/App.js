@@ -8,6 +8,17 @@ import { Route } from "react-router-dom";
 class BooksApp extends React.Component {
   state = { books: [] }
 
+  moveBook = (book, shelf) => {
+    const newBook = Object.assign({}, book, { shelf })
+
+    if (this.bookInBookShelf(newBook)) {
+      this.updateBookInShelf(newBook)
+    } else {
+      this.addBookToShelf(newBook)
+    }
+    BooksAPI.update(newBook, shelf)
+  }
+
   updateBookInShelf = book => {
     const newState = this.state.books.map(
       shelfBook => (shelfBook.id === book.id ? book : shelfBook)
@@ -24,18 +35,6 @@ class BooksApp extends React.Component {
 
   bookInBookShelf = book => {
     return this.state.books.find(shelfBook => shelfBook.id === book.id)
-  }
-
-  moveBook = (book, shelf) => {
-    const newBook = Object.assign({}, book, { shelf })
-
-    if (this.bookInBookShelf(newBook)) {
-      this.updateBookInShelf(newBook)
-    } else {
-      this.addBookToShelf(newBook)
-    }
-
-    BooksAPI.update(newBook, shelf)
   }
 
   componentDidMount() {
