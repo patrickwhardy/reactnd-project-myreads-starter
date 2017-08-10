@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 
 class Book extends Component {
-
-  concatAuthors = (authors) => {
-    let authorsString = ''
-    authors.forEach(author => {
-      authorsString += `${author}, `
-    })
-    return authorsString.slice(0, -2)
-  }
-
   render () {
     const moveBook = this.props.moveBook
+    const shelf = this.props.book.shelf
     const title = this.props.book.title
-    const authors = this.concatAuthors(this.props.book.authors)
-    const background = this.props.book.previewLink
+    const image = this.props.book.imageLinks.thumbnail
+    const authors = this.props.book.authors.join(', ')
 
     return (
       <div className="book">
@@ -23,11 +15,12 @@ class Book extends Component {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${background})`
+              backgroundImage: `url(${image})`
             }}
           />
           <div className="book-shelf-changer">
             <select
+              value={shelf}
               onChange={event => moveBook(event.target.value)}
             >
               <option value="none" disabled>Move to...</option>
