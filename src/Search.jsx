@@ -33,14 +33,16 @@ class Search extends Component {
     const booksFromShelf = this.props.books;
 
     const shelfIds = booksFromShelf.map(book => book.id);
-
-    const merged = booksFromQuery.map(queryBook => {
-      if (shelfIds.includes(queryBook.id)) {
-        return booksFromShelf.find(shelfBook => shelfBook.id === queryBook.id);
-      } else {
-        return queryBook;
-      }
-    });
+    let merged = []
+    if (Array.isArray(booksFromQuery)) {
+      merged = booksFromQuery.map(queryBook => {
+        if (shelfIds.includes(queryBook.id)) {
+          return booksFromShelf.find(shelfBook => shelfBook.id === queryBook.id);
+        } else {
+          return queryBook;
+        }
+      })
+    }
 
     return merged;
   };

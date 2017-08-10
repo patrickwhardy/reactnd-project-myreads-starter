@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class Book extends Component {
   render () {
     const moveBook = this.props.moveBook
-    const shelf = this.props.book.shelf
     const title = this.props.book.title
-    const image = this.props.book.imageLinks.thumbnail
-    const authors = this.props.book.authors.join(', ')
+    const shelf = this.props.book.shelf ? this.props.book.shelf : 'none'
+    const image = this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : ''
+    const authors = this.props.book.authors ? this.props.book.authors.join(', ') : ''
 
     return (
       <div className="book">
