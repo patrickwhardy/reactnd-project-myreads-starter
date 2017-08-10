@@ -1,5 +1,4 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Search from './Search'
 import BookShelves from './BookShelves'
@@ -28,17 +27,22 @@ class BooksApp extends React.Component {
   }
 
   moveBook = (book, shelf) => {
-  console.log('moveBook', book, shelf)
-  const newBook = Object.assign({}, book, { shelf })
+    const newBook = Object.assign({}, book, { shelf })
 
-  if (this.bookInBookShelf(newBook)) {
-    this.updateBookInShelf(newBook)
-  } else {
-    this.addBookToShelf(newBook)
+    if (this.bookInBookShelf(newBook)) {
+      this.updateBookInShelf(newBook)
+    } else {
+      this.addBookToShelf(newBook)
+    }
+
+    BooksAPI.update(newBook, shelf)
   }
 
-  BooksAPI.update(newBook, shelf)
-}
+  componentDidMount() {
+    BooksAPI.getAll().then(books => {
+      this.setState({ books })
+    })
+  }
 
   render() {
     const { books } = this.state;

@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
 import Shelf from './Shelf'
-import * as BooksAPI from './BooksAPI'
 
 class BookShelves extends Component {
-  state = {
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState({ books })
-    })
-  }
-
   filterByCategory = (category, books) => {
     if (books) {
       return books.filter(book => {
@@ -24,6 +13,8 @@ class BookShelves extends Component {
   render() {
     const categories = ['currentlyReading', 'read', 'wantToRead']
     const moveBook = this.props.moveBook
+    const books = this.props.books
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -34,10 +25,10 @@ class BookShelves extends Component {
             {categories.map((category) => {
               return (
               <div key={category}>
-                {this.state.books ?
+                {books ?
                   <Shelf
                     category={category}
-                    books={this.filterByCategory(category, this.state.books)}
+                    books={this.filterByCategory(category, books)}
                     moveBook={moveBook}
                   />
                 : null }
